@@ -182,9 +182,78 @@ class ComprehensiveDeployment:
             }
         }
         
-        # Core launch team - all agents required for voice interactions
-        # Focused deployment: Dr. Claude only
-        for agent in ["dr_claude"]:
+        # AIxtiv Core Team Deployment Configuration
+        # Deployment order and responsibilities are critical for system integrity
+        agent_configs = {
+            "dr_burby": {
+                "role": "Governance and Financial Ethics",
+                "responsibilities": ["Risk Management", "Financial Oversight", "Legal Compliance"],
+                "systems": ["ROI Calculator", "Scholarship Initiative", "Regulatory Framework"],
+                "auth_level": "governance_prime"
+            },
+            "memoria": {
+                "role": "Anthology AI Publishing Lead",
+                "responsibilities": ["Content Automation", "Brand Evaluation", "Publishing Management"],
+                "systems": ["Anthology Module", "Brand Delivery", "Content Management"],
+                "auth_level": "publishing_prime"
+            },
+            "professor_lee": {
+                "role": "Prompt Engine Architect",
+                "responsibilities": ["GEN AI Response", "4dQ Lens Implementation", "Agent Training"],
+                "systems": ["Prompt Engine", "Visualization System", "Training Framework"],
+                "auth_level": "engine_prime"
+            },
+            "dr_lucy_auto": {
+                "role": "Automation and Integration Lead",
+                "responsibilities": ["System Integration", "Workflow Automation", "Gateway Management"],
+                "systems": ["APIAuth Gateway", "Jenkins Pipeline", "Integration Framework"],
+                "auth_level": "automation_prime",
+                "service_account": "drlucyautomation@api-for-warp-drive.iam.gserviceaccount.com"
+            },
+            "dr_cypriot": {
+                "role": "Human Specialist and Resilience",
+                "responsibilities": ["Mental Health", "User Support", "Resilience Training"],
+                "systems": ["Support Framework", "Wellness Module", "Guidance System"],
+                "auth_level": "support_prime"
+            },
+            "dra_maria": {
+                "role": "Elder Support and Wisdom",
+                "responsibilities": ["Elder Engagement", "Knowledge Preservation", "Cultural Integration"],
+                "systems": ["Elder Support", "Knowledge Base", "Cultural Framework"],
+                "auth_level": "support_prime"
+            }
+        }
+
+        # SERPEW Integration Configuration
+        serpew_config = {
+            "components": ["Sector", "Role", "Personal", "Experience", "Wisdom"],
+            "data_sources": {
+                "psychometrics": ["Holland", "MBTI", "DISC", "Hogans"],
+                "sentiment": "real_time_analysis",
+                "sector_database": "global_jobs_taxonomy"
+            },
+            "storage": {
+                "primary": "firestore",
+                "vector": "pinecone",
+                "cache": "redis"
+            }
+        }
+
+        # Deploy agents with integrated SERPEW and specific responsibilities
+        def deploy_agent(agent_name, config):
+            return {
+                "type": "A",
+                "name": agent_name,
+                "data": "${google_compute_global_address.default.address}",
+                "config": config,
+                "serpew": serpew_config
+            }
+
+        # Process deployment for each domain
+        for domain in ["2100.expert", "2100.cool"]:
+            for agent_name, config in agent_configs.items():
+                dns_record = deploy_agent(agent_name, config)
+                godaddy_config["domains"][domain]["dns_records"].append(dns_record)
             for domain in ["2100.expert", "2100.cool"]:
                 godaddy_config["domains"][domain]["dns_records"].append({
                     "type": "A",
