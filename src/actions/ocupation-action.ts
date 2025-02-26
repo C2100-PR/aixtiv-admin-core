@@ -1,7 +1,7 @@
 'use server'
 
 import { collection, doc, getDoc, getDocs, addDoc, updateDoc, deleteDoc } from '@firebase/firestore'
-import { db } from '@/lib/firebase'
+import { db } from '@/aixtiv-orchestra/services/firebase'
 
 interface Occupation {
 id: string
